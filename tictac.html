@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+	tr,td{
+		border: 1px solid black;
+		font-family: Times New Roman;
+		font-weight: bold;
+		text-align: center;
+		font-size: 50px;
+		width: 33.3%;
+
+
+	}
+	.tiles{
+		vertical-align: bottom;
+		width: 33.3%;
+		
+
+	}
+	table{
+		width: 25%;
+
+		align-content: center;
+		align-self: center;
+		text-align: center;
+		 margin-left:auto; 
+         margin-right:auto;
+         margin: 0 auto;
+         position: relative;
+		
+	}
+	body{
+		text-align: center;
+	}
+	td{
+		width: 33.3%;
+		height: 100px;
+		
+	}
+	td:after {
+  content: '';
+  display: block;
+  margin-top: 30%;
+  margin-bottom: 30%;
+  margin-left: 30%;
+  margin-right: 30%;
+ 
+}
+table {
+  border-collapse:collapse; 
+
+}
+td {
+  border: 6px solid #222;
+}
+td:first-of-type {
+  border-left-color: transparent;
+  border-top-color: transparent;
+}
+td:nth-of-type(2) {
+  border-top-color: transparent;
+}
+td:nth-of-type(3) {
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+tr:nth-of-type(3) td {
+  border-bottom-color: transparent;
+}
+  div{
+font-weight: italic;
+font-size:20px;
+  }
+  a
+  {
+  	font-weight: bold;
+  	color: black;
+  	text-decoration: none;
+  }
+</style>
+<head>
+	<h1>Tic Tac Toe Game</h1>
+	<title>TicTacToe</title>
+</head>
+<body onload="startfun();">
+	<div id="textbox">
+		Some text here
+	</div>
+	<table>
+		<tr class="row">
+			<td id="s1"class="tiles" onclick="nextfun(this)"></td>
+			<td id="s2"class="tiles" onclick="nextfun(this)"></td>
+			<td id="s3" class="tiles" onclick="nextfun(this)"></td>
+			
+		</tr>
+		<tr class="row">
+			<td id="s4" class="tiles" onclick="nextfun(this)"></td>
+			<td id="s5" class="tiles" onclick="nextfun(this)"></td>
+			<td id="s6" class="tiles" onclick="nextfun(this)"></td>
+			
+		</tr>
+		<tr class="row">
+			<td id="s7" class="tiles" onclick="nextfun(this)"></td>
+			<td id="s8" class="tiles" onclick="nextfun(this)"></td>
+			<td id="s9" class="tiles" onclick="nextfun(this)"></td>
+			
+		</tr>
+	</table>
+	<a href="javascript:startfun()">Start Game </a>
+</body>
+	<script type="text/javascript">
+		var winner= false;
+		var draw= false;
+		function startfun(){
+         for(i=1; i<=9;i++)
+         {
+         	document.getElementById("s"+ i).innerText="";
+         }
+         var a=Math.random();
+         if(a>0.5){
+         document.turn="X";
+     }
+     else{
+     	document.turn="O";
+     }
+         
+         setmessage(document.turn+" gets to start");
+         
+
+		}
+		function nextfun(tiles) {
+			
+			if(tiles.innerText=="" && winner==false && draw==false)
+			{
+				tiles.innerText=document.turn;
+			changefun();
+		}
+		else if(winner==false && draw==false)
+		{
+			setmessage("Chose another tile");
+		}
+		}
+		function changefun() 
+		{
+			if(checkWinner(document.turn))
+			{
+				setmessage(document.turn + " wins the game.")
+               winner=true;
+			}
+          else if(document.turn=="X" && draw==false)
+          {
+          	document.turn="O";
+          	setmessage(document.turn+" turns now");
+          }
+          else if(winner==false && draw==false){
+          	document.turn="X";
+          	setmessage(document.turn+" turns now");
+          }
+			// body...
+		}
+
+		function checkWinner(move)
+		{
+        var result=false;
+        if(checkRow(1,2,3,move) || checkRow(4,5,6,move) || checkRow(7,8,9,move) || checkRow(1,4,7,move) || checkRow(2,5,8,move)||            checkRow(3,6,9,move) ||checkRow(1,5,9,move)||checkRow(3,5,7,move))
+           result=true;
+        else if(checkDraw())
+        { 
+        	draw=true;
+        	console.log("asaS");
+        	setmessage("Game Draw");
+        }
+        
+        return result;
+		}
+		function checkDraw(){
+			var a=0;
+			for(i=1;i<=9;i++)
+			{
+				if(getbox(i)!=""){
+                 a++;
+				}
+			}
+			console.log(a);
+			if(a==9)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		function checkRow(a,b,c,move){
+			var result=false;
+			if(getbox(a)==move && getbox(b)==move && getbox(c)==move)
+			{
+				result=true;
+			}
+			return result;
+		}
+		function getbox(number){
+        return document.getElementById("s"+ number).innerText;
+		}
+		function setmessage(msg){
+			document.getElementById('textbox').innerText=msg;
+		}
+</script>
+
+
+</html>
