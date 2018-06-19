@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+	
+
+  a
+  {
+  	font-weight: bold;
+  	color: black;
+  	text-decoration: none;
+  	
+
+  }
+  #restart{
+  	width: 5000px;
+  }
+  #mycanvas {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
+
+}
+#textbox{
+float:left;
+	font-weight: bold;
+	
+	font-size: 200%;
+}
+#divrestart{
+	width: 100px;
+	height: 100px;
+}
+</style>
+<head>
+	<h1>Tic Tac Toe Game</h1>
+	<title>TicTacToe</title>
+</head>
+<body onload="drawing()">
+	
+	<canvas id="mycanvas" align="center"></canvas>
+
+	<div id="textbox" >
+		Some text here
+	</div>
+	<div id="divrestart">
+		<br>
+		<br>
+	<a href="javascript:drawing()" id="restart">Start Game </a>
+</div>
+</body>
+	<script type="text/javascript">
+
+var winner= false;
+var draw= false;
+var c;
+var ctx;
+var count=[];
+
+var counterDraw=0;
+var tic=[];
+for(i=1;i<8;i++){
+	tic[i]=0;
+}
+
+
+  function drawing(){
+			console.log("aqaa");
+		 c= document.getElementById('mycanvas');
+		 ctx=c.getContext('2d');
+		c.width="600";
+		c.height="600";
+
+
+		ctx.fillStyle='SkyBlue';
+		for(i=0;i<3;i++){
+			for(j=0;j<3;j++){
+		ctx.fillRect(i*200,j*200,195,195);
+		count=[];
+		winner=false;
+		draw=false;
+		tic=[];
+		counterDraw=0;
+
+		startfun();
+	}
+	c.addEventListener('mousedown',function(){
+		boxnum();
+
+	})
+}
+
+		
+	}
+	function boxnum(){
+		
+		 var rect = mycanvas.getBoundingClientRect();
+    var x = event.clientX - rect.left;
+    var y = event.clientY - rect.top;
+    var x1=Math.floor((x/200));
+    var y1=Math.floor((y/200));
+     pos=y1*3+ x1+1; 
+     
+    
+    nextfun(x1,y1,pos);
+    
+    
+}
+
+	
+
+
+
+
+
+
+
+		function startfun(){
+        
+        
+         var a=Math.random();
+     
+ 
+       if(a>0.5){
+       document.turn="X";
+     }
+     else{
+            document.turn="O";
+     }
+         
+         setmessage(document.turn+" gets to start");
+         
+
+		}
+		function nextfun(x,y,pos) {
+
+			if(document.turn=="X"&& count[pos]==null&& winner==false && draw==false)
+			{
+				
+			
+
+		    ctx.beginPath();
+			ctx.arc(x*200+100,y*200+100,50,0,2*Math.PI);
+			ctx.stroke();
+			count[pos]=false;
+			setmessage(document.turn+" turns now");
+			tic[pos]="X";
+            document.turn="O";
+            document.turnl = 'X';
+            counterDraw++;
+
+             
+		
+		}
+		else if(document.turn=="O" && count[pos]==null && winner==false && draw==false)
+          {
+          
+          	//console.log(count);
+          	 ctx.moveTo(x*200 +40,y*200+40);
+			ctx.lineTo((x*200)+160,(y*200)+160);
+			ctx.moveTo(x*200+40,(y*200)+160);
+			ctx.lineTo(x*200+160,y*200+40);
+			ctx.stroke();
+			tic[pos]="O"; 
+            count[pos]=false;
+            setmessage(document.turn+" turns now");
+			document.turn="X";
+          	document.turnl = 'O';
+          	counterDraw++;
+		
+		}
+			if(checkWinner(document.turnl,counterDraw))
+			{
+				console.log(document.turnl);
+				setmessage(document.turn + " wins the game.")
+              winner=true;
+             
+			}
+	}
+		
+		function checkWinner(move,counterDraw)
+		{
+        var result=false;
+        if(checkRow(1,2,3,move) || checkRow(4,5,6,move) || checkRow(7,8,9,move) || checkRow(1,4,7,move) || checkRow(2,5,8,move)||  checkRow(3,6,9,move) ||checkRow(1,5,9,move)||checkRow(3,5,7,move))
+           result=true;
+        else if(checkDraw(counterDraw))
+        { 
+        	draw=true;
+        	console.log("Checkdraw");
+        	setmessage("Game Draw");
+        }
+        
+        return result;
+		}
+		function checkDraw(counterDraw){
+			var d=counterDraw;
+			console.log(counterDraw);
+			if(counterDraw==9)
+			{
+				return true;
+				draw=true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		function checkRow(a,b,c,move){
+			var result=false;
+			if(getbox(a)==move && getbox(b)==move && getbox(c)==move)
+			{
+				result=true;
+			}
+			return result;
+		}
+		function getbox(number){
+			
+          return tic[number];
+		}
+		function setmessage(msg){
+			document.getElementById('textbox').innerText=msg;
+		}
+</script>
+
+
+</html>
