@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blob</title>
+</head>
+<body>
+<canvas id="blobs" width="600" height="400"></canvas>
+</body>
+<script type="text/javascript">
+	function drawSomething() {
+	var canvas = document.getElementById('blobs');
+	var ctx = canvas.getContext('2d');
+
+	ctx.lineWidth = 2;
+	ctx.strokeStyle = '#FF0000';
+	ctx.beginPath();
+	ctx.moveTo(10, 10);
+	ctx.lineTo(40, 10);
+	ctx.lineTo(40, 40);
+	ctx.stroke();
+}
+function mainLoop() {
+	drawSomething();
+	updateAnimation();
+	setTimeout('mainLoop()', 30);
+}
+
+mainLoop();
+
+</script>
+</html>
