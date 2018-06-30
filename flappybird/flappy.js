@@ -1,6 +1,6 @@
-var bY=30;
-var bX=20;
-var constant=50;
+var bY=50;
+var bX=80;
+
 plen=200;
 
 var py=40;
@@ -11,6 +11,7 @@ var ctx=c.getContext('2d');
 pipe[0]={
 	x:mycanvas.width,
 	y:2,
+	constant:50,
 }
  var req=false;
  var press=false;
@@ -42,20 +43,22 @@ ctx.drawImage(imageground,0,mycanvas.height-40,mycanvas.width,100);
 for(i=0;i<pipe.length;i++)
 {
 
-ctx.drawImage(imagetop,pipe[i].x,pipe[i].y-constant,60,plen);
-ctx.drawImage(imagebtm,pipe[i].x,pipe[i].y+200+constant,60,plen);
-pipe[i].x--;
-
-//console.log(pipe[i].x,pipe[i].y)
 if(collision())
 {
 	display();
 }
+ctx.drawImage(imagetop,pipe[i].x,pipe[i].y-pipe[i].constant,60,plen);
+ctx.drawImage(imagebtm,pipe[i].x,pipe[i].y+200+pipe[i].constant,60,plen);
+pipe[i].x--;
+
+//console.log(pipe[i].x,pipe[i].y)
+
 if(pipe[i].x==mycanvas.width-190)
 {
 	pipe.push(
 		{x:mycanvas.width, 
-		y:Math.floor(Math.random()*130)
+		y:Math.floor(Math.random()*130),
+		constant:Math.floor(Math.random()*21 +30)
 		});
 	//console.log(pipe[i])
 }
@@ -92,7 +95,7 @@ function collision()
 	//console.log(bX,bY)
 	//console.table(pipe)
 	
-if((bX+30>=pipe[i].x&&bX+40<=pipe[i].x+70)&&(bY<=pipe[i].y+150||bY+40>=pipe[i].y+250)||bY+40>=mycanvas.height-40)
+if((bX+30>=pipe[i].x&&bX+40<=pipe[i].x+70)&&(bY<=pipe[i].y+200-pipe[i].constant||bY+40>=pipe[i].y+200+pipe[i].constant)||bY+40>=mycanvas.height-40)
 	{
 		return true;
 	}
