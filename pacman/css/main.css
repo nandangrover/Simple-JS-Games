@@ -1,0 +1,63 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:brfore, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: #1b1515;
+}
+
+body>div {
+  margin:auto;
+  text-align: center;
+}
+.map
+{
+  transform: scale(0.6);
+}
+.tile {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  vertical-align: top;
+}
+.pacmanUp{
+  width: 650px;
+}
+
+.wall {
+  background-color: blue;
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  border: 1px solid yellow;
+}
+
+.coins {
+  width: 6px;
+  height: 6px;
+  vertical-align: mide;
+  /* text-align: center; */
+  top: 0px;
+  position: relative;
+  margin: 21px;
+  padding: 1px;
+  background-color: #e6e65b;
+  border-radius: 10px;
+  /* margin-right: 23px; */
+  /* margin-left: 33px; */
+  display: inline-block;
+}
+
+.pacman {
+  background-image: url(../media/pacman.png);
+  background-size: 100% 100%;
+  width: 50px;
+  height: 50px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
